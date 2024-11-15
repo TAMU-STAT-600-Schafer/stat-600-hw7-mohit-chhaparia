@@ -6,10 +6,16 @@
 # scale - magnitude for initialization of W_k (standard deviation of normal)
 # seed - specified seed to use before random normal draws
 initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
+  set.seed(seed)
+  
   # [ToDo] Initialize intercepts as zeros
+  b1 <- rep(0, hidden_p)
+  b2 <- rep(0, K)
   
   # [ToDo] Initialize weights by drawing them iid from Normal
   # with mean zero and scale as sd
+  W1 <- matrix(rnorm(p * hidden_p, mean = 0, sd = scale), nrow = p, ncol = hidden_p)
+  W2 <- matrix(rnorm(hidden_p * K, mean = 0, sd = scale), nrow = hidden_p, ncol = K)
   
   # Return
   return(list(b1 = b1, b2 = b2, W1 = W1, W2 = W2))
