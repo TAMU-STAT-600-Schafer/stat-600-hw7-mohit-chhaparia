@@ -149,6 +149,17 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       X_batch <- X[batch_idx, , drop = FALSE]
       y_batch <- y[batch_idx]
       
+      out <- one_pass(X = X_batch, 
+                      y = y_batch, 
+                      K = max(y) + 1, 
+                      W1 = W1, 
+                      b1 = b1, 
+                      W2 = W2, 
+                      b2 = b2, 
+                      lambda = lambda)
+      epoch_loss <- epoch_loss + out$loss
+      epoch_error <- epoch_error + out$error
+      
     }
 
     
