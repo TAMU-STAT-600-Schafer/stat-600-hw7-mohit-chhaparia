@@ -121,6 +121,12 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
 
   # [ToDo] Initialize b1, b2, W1, W2 using initialize_bw with seed as seed,
   # and determine any necessary inputs from supplied ones
+  with(initialize_bw(ncol(X), hidden_p, max(y) + 1, scale, seed), {
+    b1 <<- b1
+    b2 <<- b2
+    W1 <<- W1
+    W2 <<- W2
+  })
   
   # Initialize storage for error to monitor convergence
   error = rep(NA, nEpoch)
