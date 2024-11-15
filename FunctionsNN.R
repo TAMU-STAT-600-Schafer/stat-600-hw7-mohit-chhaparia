@@ -145,6 +145,9 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
     #  - do one_pass to determine current error and gradients
     #  - perform SGD step to update the weights and intercepts
     for (batch in 1:nBatch){
+      batch_idx <- which(batchids == batch)
+      X_batch <- X[batch_idx, , drop = FALSE]
+      y_batch <- y[batch_idx]
       
     }
 
