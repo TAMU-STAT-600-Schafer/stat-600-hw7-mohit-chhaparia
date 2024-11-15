@@ -161,7 +161,8 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       epoch_error <- epoch_error + out$error
       
       # Update
-      with(out, {
+      grads <- out$grads
+      with(grads, {
         W1 <<- W1 - rate * dW1
         W2 <<- W2 - rate * dW2
         b1 <<- b1 - rate * db1
