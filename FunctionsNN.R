@@ -169,10 +169,16 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       })
     }
 
-    
     # [ToDo] In the end of epoch, evaluate
     # - average training error across batches
     # - validation error using evaluate_error function
+    error[i] <- epoch_error / nBatch
+    error_val[i] <- evaluate_error(Xval = Xval, 
+                                   yval = yval, 
+                                   W1 = W1, 
+                                   b1 = b1, 
+                                   W2 = W2, 
+                                   b2 = b2)
   }
   # Return end result
   return(list(error = error, error_val = error_val, params =  list(W1 = W1, b1 = b1, W2 = W2, b2 = b2)))
