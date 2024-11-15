@@ -88,12 +88,12 @@ evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
   hidden <- pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE))
   scores <- hidden %*% W2 + matrix(b2, nrow = nrow(hidden), ncol = length(b2), byrow = TRUE)
   
-  probs <- exp(scores) / rowSums(exp(scores))
-  pred_classes <- max.col(probs) - 1
+  probs <- exp(scores) / rowSums(exp(scores)) # Compute probabilities
+  pred_classes <- max.col(probs) - 1 # Predict classes
   
   # [ToDo] Evaluate error rate (in %) when 
   # comparing scores-based predictions with true yval
-  error <- mean(pred_classes != yval) * 100
+  error <- mean(pred_classes != yval) * 100 # Calculate classification error in percentage
   
   return(error)
 }
