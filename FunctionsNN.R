@@ -160,6 +160,13 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       epoch_loss <- epoch_loss + out$loss
       epoch_error <- epoch_error + out$error
       
+      # Update
+      with(out, {
+        W1 <<- W1 - rate * dW1
+        W2 <<- W2 - rate * dW2
+        b1 <<- b1 - rate * db1
+        b2 <<- b2 - rate * db2
+      })
     }
 
     
