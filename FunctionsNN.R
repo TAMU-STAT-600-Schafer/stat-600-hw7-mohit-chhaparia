@@ -138,9 +138,16 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   for (i in 1:nEpoch){
     # Allocate bathes
     batchids = sample(rep(1:nBatch, length.out = n), size = n)
+    
+    epoch_loss <- 0
+    epoch_error <- 0
     # [ToDo] For each batch
     #  - do one_pass to determine current error and gradients
     #  - perform SGD step to update the weights and intercepts
+    for (batch in 1:nBatch){
+      
+    }
+
     
     # [ToDo] In the end of epoch, evaluate
     # - average training error across batches
