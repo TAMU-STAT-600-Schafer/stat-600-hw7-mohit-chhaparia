@@ -29,8 +29,14 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
 # K - number of classes
 loss_grad_scores <- function(y, scores, K){
   
+  n <- length(y) # Length of y
+  
+  temp_mat <- matrix(0, nrow = n, ncol = K)
+  for(i in 1:n) temp_mat[i, y[i] + 1] <- 1 # We add 1 to the column index as R indexes start from 1 where elements of y start from 0.
+  probs <- 1.0 * exp(scores) / rowSums(exp(scores))
+  
   # [ToDo] Calculate loss when lambda = 0
-  # loss = ...
+  loss = - sum(temp_mat * log(probs)) / n
   
   # [ToDo] Calculate misclassification error rate (%)
   # when predicting class labels using scores versus true y
