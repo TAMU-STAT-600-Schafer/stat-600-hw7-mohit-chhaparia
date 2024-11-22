@@ -27,6 +27,13 @@ test_that("initialize_bw works correctly with default and custom scale values", 
   expect_true(abs(W2_sd - 0.05) < 5e-2)
 })
 
+test_that("initialize_bw with incorrect inputs", {
+  expect_error(initialize_bw(p = "a", hidden_p = 2, K = 2))
+  expect_error(initialize_bw(p = -3, hidden_p = 2, K = 2))
+  expect_error(initialize_bw(p = 3, hidden_p = 2, K = 2, scale = "a"))
+  expect_error(initialize_bw(p = 3.5, hidden_p = 2, K = 2))
+})
+
 #############################
 # Tests on loss_grad_scores #
 #############################
