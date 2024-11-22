@@ -56,3 +56,38 @@ test_that("Verify output type and length from loss_grad_scores", {
   expect_length(out$error, 1)
 })
 
+#####################
+# Tests on one_pass #
+#####################
+
+test_that("Checking output length, dimensions, name, and data type for one_pass", {
+  X <- matrix(c(1, 0, -1, 2, -2, 0.5),
+              nrow = 3, byrow = TRUE)
+  y <- c(0, 1, 2)
+  K <- 3
+  W1 <- matrix(rnorm(6, mean = 0, sd = 1e-3), nrow = 2)
+  b1 <- rep(0, 3)
+  W2 <- matrix(rnorm(9, mean = 0, sd = 1e-3), nrow = 3)
+  b2 <- rep(0, 3)
+  lambda <- 0.01
+  
+  out <- one_pass(X = X,
+                  y = y,
+                  W1 = W1,
+                  K = K,
+                  b1 = b1,
+                  W2 = W2,
+                  b2 = b2,
+                  lambda = lambda)
+  
+  expect_type(out, "list")
+  expect_named(out, c("loss", "error", "grads"))
+  expect_type(out$loss, "double")
+  expect_type(out$error, "double")
+  expect_named(out$grads, c("dW1", "db1", "dW2", "db2"))
+  expect_length(out$grads$db1, length(b1))
+  expect_length(out$grads$db2, length(b2))
+  expect_equal(dim(out$grads$dW1), dim(W1))
+  expect_equal(dim(out$grads$dW2), dim(W2))
+})
+
