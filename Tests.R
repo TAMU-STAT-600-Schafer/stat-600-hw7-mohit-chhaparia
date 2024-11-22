@@ -43,3 +43,16 @@ test_that("loss_grad_scores works correctly", {
   expect_equal(dim(out$grad), dim(scores))
 })
 
+test_that("Verify output type and length from loss_grad_scores", {
+  scores <- matrix(c(2, 1, 0.5, 0.2, 0.3, 0.1),
+                   nrow = 2, byrow = TRUE)
+  out <- loss_grad_scores(y = c(0, 1), scores = scores, K = 3)
+  expect_type(out, "list")
+  expect_named(out, c("loss", "grad", "error"))
+  expect_type(out$loss, "double")
+  expect_length(out$loss, 1)
+  expect_equal(dim(out$grad), dim(scores))
+  expect_type(out$error, "double")
+  expect_length(out$error, 1)
+})
+
