@@ -67,7 +67,7 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
   # Checks on seed #
   ##################
   if(!is.numeric(seed)) stop("seed should be a number")
-  if(!is.vector(seed)) if(!is.matrix(scale)) stop("seed should be a vector or a matrix")
+  if(!is.vector(seed)) if(!is.matrix(seed)) stop("seed should be a vector or a matrix")
   
   
   set.seed(seed)
@@ -324,6 +324,62 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   if(!is.matrix(X)) stop("X should be matrix")
   if(!is.matrix(Xval)) stop("Xval should be matrix")
   if(ncol(X) != ncol(Xval)) stop("X and Xval should have the same number of columns.")
+  
+  if(!is.vector(lambda)){
+    if(!is.matrix(lambda)) stop("lambda should contain a single element")
+    if(nrow(lambda) == 1 & ncol(lambda) == 1){
+      lambda <- as.vector(lambda)
+    } else{
+      stop("lambda should contain a single element")
+    }
+  }
+  
+  if(!is.vector(rate)){
+    if(!is.matrix(rate)) stop("rate should contain a single element")
+    if(nrow(rate) == 1 & ncol(rate) == 1){
+      rate <- as.vector(rate)
+    } else{
+      stop("rate should contain a single element")
+    }
+  }
+  
+  if(!is.vector(mbatch)){
+    if(!is.matrix(mbatch)) stop("mbatch should contain a single element")
+    if(nrow(mbatch) == 1 & ncol(mbatch) == 1){
+      mbatch <- as.vector(mbatch)
+    } else{
+      stop("mbatch should contain a single element")
+    }
+  }
+  
+  if(!is.vector(nEpoch)){
+    if(!is.matrix(nEpoch)) stop("nEpoch should contain a single element")
+    if(nrow(nEpoch) == 1 & ncol(nEpoch) == 1){
+      nEpoch <- as.vector(nEpoch)
+    } else{
+      stop("nEpoch should contain a single element")
+    }
+  }
+  
+  if(!is.vector(hidden_p)){
+    if(!is.matrix(hidden_p)) stop("hidden_p should contain a single element")
+    if(nrow(hidden_p) == 1 & ncol(hidden_p) == 1){
+      hidden_p <- as.vector(hidden_p)
+    } else{
+      stop("hidden_p should contain a single element")
+    }
+  }
+  
+  if(!is.vector(scale)){
+    if(!is.matrix(scale)) stop("scale should contain a single element")
+    if(nrow(scale) == 1 & ncol(scale) == 1){
+      scale <- as.vector(scale)
+    } else{
+      stop("scale should contain a single element")
+    }
+  }
+  
+  if(!is.vector(seed)) if(!is.matrix(seed)) stop("seed should be a vector or a matrix")
   
   # Get sample size and total number of batches
   n = length(y)
