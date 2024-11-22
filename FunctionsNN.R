@@ -6,6 +6,21 @@
 # scale - magnitude for initialization of W_k (standard deviation of normal)
 # seed - specified seed to use before random normal draws
 initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
+  
+  ###############
+  # Checks on p #
+  ###############
+  if(!is.numeric(p)) stop("p should be a positive integer")
+  if(!is.vector(p)){
+    if(!is.matrix(p)) stop("p should contain a single element")
+    if(nrow(p) == 1 & ncol(p) == 1){
+      p <- as.vector(p)
+    } else{
+      stop("p should contain a single element")
+    }
+  }
+  if(p != round(p) & p <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
+  
   set.seed(seed)
   
   # [ToDo] Initialize intercepts as zeros
