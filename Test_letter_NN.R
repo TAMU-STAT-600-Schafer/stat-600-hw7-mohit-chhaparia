@@ -47,7 +47,17 @@ lines(1:length(out2$error_val), out2$error_val, col = "red")
 test_error = evaluate_error(Xt, Yt, out2$params$W1, out2$params$b1, out2$params$W2, out2$params$b2)
 test_error # 16.1
 
+# A different set of parameters for minimizing test error
+out4 = NN_train(Xtrain, Ytrain, Xval, Yval, lambda = 0.001,
+                rate = 0.1, mbatch = 25, nEpoch = 100,
+                hidden_p = 200, scale = 1e-2, seed = 12345)
+plot(1:length(out4$error), out4$error, ylim = c(0, 70))
+lines(1:length(out4$error_val), out4$error_val, col = "red")
 
+# Evaluate error on testing data
+test_error2 = evaluate_error(Xt, Yt, out4$params$W1, out4$params$b1, out4$params$W2, out4$params$b2)
+test_error2 # 16.1
+# test_error2 = 15.75
 
 
 microbenchmark(
