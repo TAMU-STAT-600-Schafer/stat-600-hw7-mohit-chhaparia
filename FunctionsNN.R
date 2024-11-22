@@ -323,6 +323,8 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   
   if(!is.matrix(X)) stop("X should be matrix")
   if(!is.matrix(Xval)) stop("Xval should be matrix")
+  if(nrow(X) != length(y)) stop("Number of rows of X should be equal to the length of y.")
+  if(nrow(Xval) != length(yval)) stop("Number of rows of Xval should be equal to the length of yval.")
   if(ncol(X) != ncol(Xval)) stop("X and Xval should have the same number of columns.")
   
   if(!is.vector(lambda)){
