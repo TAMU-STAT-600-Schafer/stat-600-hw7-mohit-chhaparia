@@ -286,6 +286,19 @@ evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
 NN_train <- function(X, y, Xval, yval, lambda = 0.01,
                      rate = 0.01, mbatch = 20, nEpoch = 100,
                      hidden_p = 20, scale = 1e-3, seed = 12345){
+  
+  if(!all(is.numeric(X))) stop("All elements of X should be numeric.")
+  if(!all(is.numeric(y))) stop("All elements of y should be numeric.")
+  if(!all(is.numeric(Xval))) stop("All elements of Xval should be numeric.")
+  if(!all(is.numeric(Yval))) stop("All elements of Yval should be numeric.")
+  if(!is.numeric(lambda)) stop("Lambda should be numeric.")
+  if(!is.numeric(rate)) stop("rate should be numeric.")
+  if(!is.numeric(mbatch)) stop("mbatch should be numeric.")
+  if(!is.numeric(nEpoch)) stop("nEpoch should be numeric.")
+  if(!is.numeric(hidden_p)) stop("hidden_p should be numeric.")
+  if(!is.numeric(scale)) stop("scale should be numeric.")
+  if(!is.numeric(seed)) stop("seed should be numeric.")
+  
   # Get sample size and total number of batches
   n = length(y)
   nBatch = floor(n / mbatch)
