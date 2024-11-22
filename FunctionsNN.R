@@ -21,6 +21,20 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
   }
   if(p != round(p) & p <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
   
+  ######################
+  # Checks on hidden_p #
+  ######################
+  if(!is.numeric(hidden_p)) stop("hidden_p should be a positive integer")
+  if(!is.vector(hidden_p)){
+    if(!is.matrix(hidden_p)) stop("hidden_p should contain a single element")
+    if(nrow(hidden_p) == 1 & ncol(hidden_p) == 1){
+      hidden_p <- as.vector(hidden_p)
+    } else{
+      stop("hidden_p should contain a single element")
+    }
+  }
+  if(hidden_p != round(hidden_p) & hidden_p <= 0) stop("Dimension of hidden layer should be an integer greater than or equal to 1.")
+  
   set.seed(seed)
   
   # [ToDo] Initialize intercepts as zeros
