@@ -299,6 +299,28 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   if(!is.numeric(scale)) stop("scale should be numeric.")
   if(!is.numeric(seed)) stop("seed should be numeric.")
   
+  K <- length(unique(y))
+  
+  if(!(min(y) == 0) | !(max(y) == (K - 1))) stop("Classes in y should range from 0 to K-1")
+  if(!is.vector(y)){
+    if(!is.matrix(y)) stop("y should be a vector or a column matrix")
+    if(ncol(y) == 1){
+      y <- as.vector(y)
+    } else{
+      stop("y should be a vector or a column matrix")
+    }
+  }
+  
+  if(!(min(yval) == 0) | !(max(yval) == (K - 1))) stop("Classes in yval should range from 0 to K-1")
+  if(!is.vector(yval)){
+    if(!is.matrix(yval)) stop("yval should be a vector or a column matrix")
+    if(ncol(yval) == 1){
+      y <- as.vector(yval)
+    } else{
+      stop("yval should be a vector or a column matrix")
+    }
+  }
+  
   # Get sample size and total number of batches
   n = length(y)
   nBatch = floor(n / mbatch)
