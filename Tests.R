@@ -200,11 +200,13 @@ test_that("NN_train works with a single batch", {
   set.seed(0928)
   X <- matrix(rnorm(60), nrow = 20, ncol = 3)
   y <- sample(0:2, 20, replace = TRUE)
+  Xval <- matrix(rnorm(15), nrow = 5, ncol = 3)
+  yval <- sample(0:2, 5, replace = TRUE)
   
   out <- NN_train(X = X,
                   y = y,
-                  Xval = X,
-                  yval = y,
+                  Xval = Xval,
+                  yval = yval,
                   lambda = 0.01,
                   rate = 0.1,
                   mbatch = 20,
