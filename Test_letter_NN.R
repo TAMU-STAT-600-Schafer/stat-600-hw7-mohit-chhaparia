@@ -131,4 +131,20 @@ print(param_grid[which.min(results_df$test_error_grid),])
 
 # Note: The first number in the above results is the row number of the results_df dataframe.
 
+# Plot for variability in train error
+plot(1:length(results_df$train_error_grid), results_df$train_error_grid)
+lines(1:length(results_df$train_error_grid), results_df$train_error_grid, col = "red")
 
+# Plot for variability in val error
+plot(1:length(results_df$val_error_grid), results_df$val_error_grid)
+lines(1:length(results_df$val_error_grid), results_df$val_error_grid, col = "red")
+
+# Plot for variability in test error
+plot(1:length(results_df$test_error_grid), results_df$test_error_grid)
+lines(1:length(results_df$test_error_grid), results_df$test_error_grid, col = "red")
+
+# Plot for variability comparison for different errors
+plot(results_df$train_error_grid, type = 'p', col = 'red', pch = 19,
+     xlab = "Index", ylab = "% Error")
+points(results_df$val_error_grid, col = 'blue', pch = 17)
+points(results_df$test_error_grid, col = 'green', pch = 15)
