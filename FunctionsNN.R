@@ -167,6 +167,14 @@ loss_grad_scores <- function(y, scores, K){
 # lambda - a non-negative scalar, ridge parameter for gradient calculations
 one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
 
+  if(!all(is.numeric(X))) stop("All elements of X should be numeric")
+  if(!all(is.numeric(y))) stop("All elements of y should be numeric")
+  if(!all(is.numeric(W1))) stop("All elements of W1 should be numeric")
+  if(!all(is.numeric(b1))) stop("All elements of b1 should be numeric")
+  if(!all(is.numeric(W2))) stop("All elements of W2 should be numeric")
+  if(!all(is.numeric(b2))) stop("All elements of b2 should be numeric")
+  if(!is.numeric(lambda)) stop("Lambda should be numeric")
+  
   # [To Do] Forward pass
   # From input to hidden 
   hidden <- matrix(pmax(0, X %*% W1 + matrix(b1, nrow = nrow(X), ncol = length(b1), byrow = TRUE)), nrow = nrow(X))
