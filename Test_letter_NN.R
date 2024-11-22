@@ -90,3 +90,9 @@ results_df <- do.call(rbind, lapply(results, as.data.frame))
 min_train_error <- min(results_df$train_error_grid)
 min_val_error <- min(results_df$val_error_grid)
 min_test_error <- min(results_df$test_error_grid)
+
+best_train_params <- results_df[which.min(results_df$train_error_grid), ]
+best_val_params <- results_df[which.min(results_df$val_error_grid), ]
+best_test_params <- results_df[which.min(results_df$test_error_grid), ]
+
+
