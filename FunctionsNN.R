@@ -31,7 +31,7 @@ loss_grad_scores <- function(y, scores, K){
   
   n <- length(y) # Length of y
   
-  temp_mat <- matrix(0, nrow = n, ncol = K)
+  temp_mat <- matrix(rep(0, n * K), nrow = n, ncol = K)
   for(i in 1:n) temp_mat[i, y[i] + 1] <- 1 # We add 1 to the column index as R indexes start from 1 where elements of y start from 0.
   probs <- 1.0 * exp(scores) / rowSums(exp(scores))
   
@@ -73,7 +73,7 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
   
   # [ToDo] Backward pass
   # Get loss, error, gradient at current scores using loss_grad_scores function
-  out <- loss_grad_scores(y, scores, K)
+  out <- loss_grad_scores(y = y, scores = scores, K = K)
   grad_scores <- out$grad
   
   dW2 <- t(hidden) %*% grad_scores + lambda * W2
@@ -141,7 +141,11 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
 
   # [ToDo] Initialize b1, b2, W1, W2 using initialize_bw with seed as seed,
   # and determine any necessary inputs from supplied ones
-  with(initialize_bw(ncol(X), hidden_p, max(y) + 1, scale, seed), {
+  with(initialize_bw(p = ncol(X), 
+                     hidden_p = hidden_p, 
+                     K = max(y) + 1, 
+                     scale = scale, 
+                     seed = seed), {
     b1 <<- b1
     b2 <<- b2
     W1 <<- W1
@@ -149,8 +153,8 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   })
   
   # Initialize storage for error to monitor convergence
-  error = rep(NA, nEpoch)
-  error_val = rep(NA, nEpoch)
+  error = rep(0, nEpoch)
+  error_val = rep(0, nEpoch)
   
   # Set seed for reproducibility
   set.seed(seed)
