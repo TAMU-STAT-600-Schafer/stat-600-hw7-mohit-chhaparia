@@ -196,6 +196,15 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
   }
   if(K != round(K) | K <= 0) stop("K should be an integer greater than or equal to 1.")
   
+  if(!is.vector(lambda)){
+    if(!is.matrix(lambda)) stop("lambda should contain a single element")
+    if(nrow(lambda) == 1 & ncol(lambda) == 1){
+      lambda <- as.vector(lambda)
+    } else{
+      stop("lambda should contain a single element")
+    }
+  }
+  
   # [To Do] Forward pass
   # From input to hidden 
   hidden <- matrix(pmax(0, X %*% W1 + matrix(b1, nrow = nrow(X), ncol = length(b1), byrow = TRUE)), nrow = nrow(X))
