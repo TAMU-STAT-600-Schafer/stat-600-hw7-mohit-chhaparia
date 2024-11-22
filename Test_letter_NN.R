@@ -85,12 +85,8 @@ results <- apply(param_grid, 1, function(params){
   train_model(params)
 })
 
-results$train_error_grid
-min(results$train_error_grid)
+results_df <- do.call(rbind, lapply(results, as.data.frame))
 
-results$val_error_grid
-min(results$val_error_grid)
-
-results$test_error_grid
-min(results$test_error_grid)
-
+min_train_error <- min(results_df$train_error_grid)
+min_val_error <- min(results_df$val_error_grid)
+min_test_error <- min(results_df$test_error_grid)
