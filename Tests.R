@@ -63,6 +63,23 @@ test_that("Verify output type and length from loss_grad_scores", {
   expect_length(out$error, 1)
 })
 
+test_that("loss_grad_scores with incorrect inputs", {
+  scores <- matrix(c(0.1, 0.5, 0.4, 0.2, 0.3, 0.5),
+                   nrow = 2, byrow = TRUE)
+  y <- c(0, 2)
+  K <- 3
+  
+  expect_error(loss_grad_scores(y = y,
+                                scores = matrix(c("a", "b", "c", "d"), nrow = 2),
+                                K = K))
+  expect_error(loss_grad_scores(y = c(0),
+                                scores = scores,
+                                K = K))
+  expect_error(loss_grad_scores(y = y,
+                                scores = scores,
+                                K = 2))
+})
+
 #####################
 # Tests on one_pass #
 #####################
