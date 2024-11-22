@@ -205,6 +205,14 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
     }
   }
   
+  if(!(length(K) == length(lambda)) | !(length(K) == 1)) stop("K and lambda should contain single numeric elements.")
+  if(nrow(X) != length(y)) stop("Number of rows of X should be equal to the number of elements in y.")
+  if(ncol(X) != nrow(W1)) stop("Number of columns of X should be equal to the number of rows of W1.")
+  if(ncol(W1) != length(b1)) stop("Number of columns of W1 should be equal to the number of elements in b1.")
+  if(length(b1) != nrow(W2)) stop("Number of rows of W2 should be equal to the number of elements in b1.")
+  if(ncol(W2) != K) stop("Number of columns of W2 should be equal to K.")
+  if(length(b2) != K) stop("Number of elements in b2 should be equal to K.")
+  
   # [To Do] Forward pass
   # From input to hidden 
   hidden <- matrix(pmax(0, X %*% W1 + matrix(b1, nrow = nrow(X), ncol = length(b1), byrow = TRUE)), nrow = nrow(X))
