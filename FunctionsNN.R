@@ -93,6 +93,23 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
 # K - number of classes
 loss_grad_scores <- function(y, scores, K){
   
+  ###############
+  # Checks on y #
+  ###############
+  if(!all(is.numeric(y))) stop("All elements of y should be numeric.")
+  if(length(y) != nrow(scores)) stop("Length of y should be equal to the number of rows in scores")
+  if(min(y) != 0 & max(y) != (K - 1)) stop("Classes should range from 0 to K-1")
+  if(length(unique(y)) != K) stop("All classes from 0 to K-1 should be present in y")
+  if(!is.vector(y)){
+    if(!is.matrix(y)) stop("y should be a vector or a column matrix")
+    if(ncol(y) == 1){
+      y <- as.vector(y)
+    } else{
+      stop("y should be a vector or a column matrix")
+    }
+  }
+  
+  
   n <- length(y) # Length of y
   
   temp_mat <- matrix(rep(0, n * K), nrow = n, ncol = K)
