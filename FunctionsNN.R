@@ -396,6 +396,7 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       stop("mbatch should contain a single element")
     }
   }
+  if(!(mbatch <= nrow(X))) stop("mbatch should be less than or equal to the number of rows in X.")
   
   if(!is.vector(nEpoch)){
     if(!is.matrix(nEpoch)) stop("nEpoch should contain a single element")
@@ -405,6 +406,7 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       stop("nEpoch should contain a single element")
     }
   }
+  if(nEpoch != round(nEpoch) | nEpoch <= 0) stop("nEpoch should be a positive integer.")
   
   if(!is.vector(hidden_p)){
     if(!is.matrix(hidden_p)) stop("hidden_p should contain a single element")
