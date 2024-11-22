@@ -219,3 +219,56 @@ test_that("NN_train works with a single batch", {
   expect_length(out$error_val, 20)
 })
 
+test_that("NN_train with invalid inputs", {
+  set.seed(0928)
+  X <- matrix(rnorm(60), nrow = 20, ncol = 3)
+  y <- sample(0:2, 20, replace = TRUE)
+  Xval <- matrix(rnorm(15), nrow = 5, ncol = 3)
+  yval <- sample(0:2, 5, replace = TRUE)
+  
+  expect_error(NN_train(X = X,
+                        y = y,
+                        Xval = Xval,
+                        yval = yval,
+                        lambda = -0.01,
+                        rate = 0.1,
+                        mbatch = 20,
+                        nEpoch = 20,
+                        hidden_p = 5,
+                        scale = 1e-3,
+                        seed = 0928))
+  expect_error(NN_train(X = matrix(rnorm(20), nrow = 5, ncol = 4),
+                        y = y,
+                        Xval = Xval,
+                        yval = yval,
+                        lambda = 0.01,
+                        rate = 0.1,
+                        mbatch = 20,
+                        nEpoch = 20,
+                        hidden_p = 5,
+                        scale = 1e-3,
+                        seed = 0928))
+  expect_error(NN_train(X = X,
+                        y = y,
+                        Xval = Xval,
+                        yval = yval,
+                        lambda = 0.01,
+                        rate = 0.1,
+                        mbatch = 30,
+                        nEpoch = 20,
+                        hidden_p = 5,
+                        scale = 1e-3,
+                        seed = 0928))
+  expect_error(NN_train(X = X,
+                        y = y,
+                        Xval = Xval,
+                        yval = yval,
+                        lambda = 0.01,
+                        rate = 0.1,
+                        mbatch = 20,
+                        nEpoch = -20,
+                        hidden_p = 5,
+                        scale = 1e-3,
+                        seed = 0928))
+})
+
