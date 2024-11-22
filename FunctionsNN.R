@@ -19,7 +19,7 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
       stop("p should contain a single element")
     }
   }
-  if(p != round(p) & p <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
+  if(p != round(p) | p <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
   
   ######################
   # Checks on hidden_p #
@@ -33,7 +33,7 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
       stop("hidden_p should contain a single element")
     }
   }
-  if(hidden_p != round(hidden_p) & hidden_p <= 0) stop("Dimension of hidden layer should be an integer greater than or equal to 1.")
+  if(hidden_p != round(hidden_p) | hidden_p <= 0) stop("Dimension of hidden layer should be an integer greater than or equal to 1.")
   
   ###############
   # Checks on K #
@@ -47,7 +47,7 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
       stop("K should contain a single element")
     }
   }
-  if(K != round(K) & K <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
+  if(K != round(K) | K <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
   
   ###################
   # Checks on scale #
