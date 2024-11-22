@@ -69,6 +69,7 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
   # ReLU
   
   # From hidden to output scores
+  scores <- hidden %*% W2 + matrix(b2, nrow =  nrow(hidden), ncol = length(b2), byrow = TRUE)
  
   
   # [ToDo] Backward pass
