@@ -332,7 +332,7 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
   if(!all(is.numeric(X))) stop("All elements of X should be numeric.")
   if(!all(is.numeric(y))) stop("All elements of y should be numeric.")
   if(!all(is.numeric(Xval))) stop("All elements of Xval should be numeric.")
-  if(!all(is.numeric(Yval))) stop("All elements of Yval should be numeric.")
+  if(!all(is.numeric(yval))) stop("All elements of Yval should be numeric.")
   if(!is.numeric(lambda)) stop("Lambda should be numeric.")
   if(!is.numeric(rate)) stop("rate should be numeric.")
   if(!is.numeric(mbatch)) stop("mbatch should be numeric.")
