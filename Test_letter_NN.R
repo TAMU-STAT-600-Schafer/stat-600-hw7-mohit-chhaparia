@@ -50,7 +50,7 @@ test_error # 16.1
 # this will likely take several trials
 lambda <- c(0.1, 0.01, 0.001)
 rate <- c(0.1, 0.01, 0.001)
-mbatch <- 50
+mbatch <- c(25, 50, 100, 250)
 nEpoch <- c(50, 100)
 hidden_p <- c(50, 100, 200)
 scale <- c(0.1, 0.01, 0.001)
@@ -91,8 +91,26 @@ min_train_error <- min(results_df$train_error_grid)
 min_val_error <- min(results_df$val_error_grid)
 min_test_error <- min(results_df$test_error_grid)
 
-best_train_params <- results_df[which.min(results_df$train_error_grid), ]
-best_val_params <- results_df[which.min(results_df$val_error_grid), ]
-best_test_params <- results_df[which.min(results_df$test_error_grid), ]
+best_train_error <- results_df[which.min(results_df$train_error_grid), ]
+best_val_error <- results_df[which.min(results_df$val_error_grid), ]
+best_test_error <- results_df[which.min(results_df$test_error_grid), ]
+
+print(paste("Minimum Train Error:", min_train_error))
+print("All Errors when Train error is minimum: ")
+print(best_train_error)
+print("Best Parameter for Minimum Train Error: ")
+print(param_grid[which.min(results_df$train_error_grid),])
+
+print(paste("Minimum val Error:", min_val_error))
+print("All Errors when Val error is minimum: ")
+print(best_val_error)
+print("Best Parameter for Minimum Val Error: ")
+print(param_grid[which.min(results_df$val_error_grid),])
+
+print(paste("Minimum Test Error:", min_test_error))
+print("All Errors when Test error is minimum: ")
+print(best_test_error)
+print("Best Parameter for Minimum Test Error: ")
+print(param_grid[which.min(results_df$test_error_grid),])
 
 
