@@ -49,6 +49,21 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
   }
   if(K != round(K) & K <= 0) stop("Dimension of input layer should be an integer greater than or equal to 1.")
   
+  ###################
+  # Checks on scale #
+  ###################
+  if(!is.numeric(scale)) stop("scale should be a positive number")
+  if(!is.vector(scale)){
+    if(!is.matrix(scale)) stop("scale should contain a single element")
+    if(nrow(scale) == 1 & ncol(scale) == 1){
+      scale <- as.vector(scale)
+    } else{
+      stop("scale should contain a single element")
+    }
+  }
+  if(scale <= 0) stop("scale should be a positive number.")
+  
+  
   set.seed(seed)
   
   # [ToDo] Initialize intercepts as zeros
