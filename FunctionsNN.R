@@ -109,6 +109,20 @@ loss_grad_scores <- function(y, scores, K){
     }
   }
   
+  ###############
+  # Checks on K #
+  ###############
+  if(!is.numeric(K)) stop("K should be a positive integer")
+  if(!is.vector(K)){
+    if(!is.matrix(K)) stop("K should contain a single element")
+    if(nrow(K) == 1 & ncol(K) == 1){
+      K <- as.vector(K)
+    } else{
+      stop("K should contain a single element")
+    }
+  }
+  if(K != round(K) | K <= 0) stop("K should be an integer greater than or equal to 1.")
+  
   
   n <- length(y) # Length of y
   
