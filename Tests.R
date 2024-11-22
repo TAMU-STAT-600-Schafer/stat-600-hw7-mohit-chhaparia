@@ -127,3 +127,29 @@ test_that("Testing one_pass with incorrect inputs", {
                         lambda = lambda))
 })
 
+###########################
+# Tests on evaluate_error #
+###########################
+
+test_that("Testing evalutate_error with incorrect inputs", {
+  Xval <- matrix(1:4, nrow = 2)
+  W1 <- matrix(1:6, nrow = 3)
+  b1 <- rep(0, 3)
+  W2 <- matrix(rnorm(9, mean = 0, sd = 1e-3), nrow = 3)
+  b2 <- rep(0, 3)
+  yval <- 0:1
+  
+  expect_error(evaluate_error(Xval = Xval,
+                              yval = yval,
+                              W1 = W1,
+                              b1 = b1,
+                              W2 = W2,
+                              b2 = b2))
+  expect_error(evaluate_error(Xval = Xval,
+                              yval = 0,
+                              W1 = matrix(1:6, nrow = 2),
+                              b1 = b1,
+                              W2 = W2,
+                              b2 = b2))
+})
+
