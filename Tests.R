@@ -91,3 +91,39 @@ test_that("Checking output length, dimensions, name, and data type for one_pass"
   expect_equal(dim(out$grads$dW2), dim(W2))
 })
 
+test_that("Testing one_pass with incorrect inputs", {
+  X <- matrix(1, nrow = 3, ncol = 2)
+  W1 <- matrix(1, nrow = 3, ncol = 3)
+  b1 <- rep(0, 3)
+  W2 <- matrix(1, nrow = 3, ncol = 3)
+  b2 <- rep(0, 3)
+  y <- c(0:2)
+  lambda <- 0.01
+  K <- 3
+  
+  expect_error(one_pass(X = X,
+                        y = y,
+                        K = K,
+                        W1 = W1,
+                        b1 = b1,
+                        W2 = W2,
+                        b2 = b2,
+                        lambda = lambda))
+  expect_error(one_pass(X = X,
+                        y = y,
+                        K = K,
+                        W1 = matrix(1, nrow = 2, ncol = 3),
+                        b1 = b1,
+                        W2 = W2,
+                        b2 = b2,
+                        lambda = -0.01))
+  expect_error(one_pass(X = X,
+                        y = c(0, 1, 3),
+                        K = K,
+                        W1 = matrix(1, nrow = 2, ncol = 3),
+                        b1 = b1,
+                        W2 = W2,
+                        b2 = b2,
+                        lambda = lambda))
+})
+
