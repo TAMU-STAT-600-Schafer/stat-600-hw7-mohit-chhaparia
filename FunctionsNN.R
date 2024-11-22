@@ -123,6 +123,13 @@ loss_grad_scores <- function(y, scores, K){
   }
   if(K != round(K) | K <= 0) stop("K should be an integer greater than or equal to 1.")
   
+  ####################
+  # Checks on scores #
+  ####################
+  if(!all(is.numeric(scores))) stop("All elements of scores should be numeric")
+  if(!is.matrix(scores)) stop("scores should be a matrix")
+  if(ncol(scores) != K) stop("Number of columns of scores should be equal to the number of classes")
+  
   
   n <- length(y) # Length of y
   
