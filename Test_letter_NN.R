@@ -29,7 +29,7 @@ Xinter <- cbind(rep(1, nrow(Xtrain)), Xtrain)
 Xtinter <- cbind(rep(1, nrow(Xt)), Xt)
 
 #  Apply LR (note that here lambda is not on the same scale as in NN due to scaling by training size)
-out <- LRMultiClassIrina(Xinter, Ytrain, Xtinter, Yt, lambda = 1, numIter = 150, eta = 0.1)
+out <- LRMultiClass(Xinter, Ytrain, Xtinter, Yt, lambda = 1, numIter = 150, eta = 0.1)
 plot(out$objective, type = 'o')
 plot(out$error_train, type = 'o') # around 19.5 if keep training
 plot(out$error_test, type = 'o') # around 25 if keep training
@@ -48,3 +48,49 @@ test_error # 16.1
 
 # [ToDo] Try changing the parameters above to obtain a better performance,
 # this will likely take several trials
+lambda <- c(0.1, 0.01, 0.001)
+rate <- c(0.1, 0.01, 0.001)
+mbatch <- 50
+nEpoch <- c(50, 100)
+hidden_p <- c(50, 100, 200)
+scale <- c(0.1, 0.01, 0.001)
+
+param_grid <- expand.grid(lambda = lambda,
+                          rate = rate,
+                          mbatch = mbatch,
+                          nEpoch = nEpoch,
+                          hidden_p = hidden_p,
+                          scale = scale)
+
+train_model <- function(params) {
+  out3 <- NN_train(Xtrain, Ytrain, Xval, Yval,
+           lambda = as.numeric(params["lambda"]),
+           rate = as.numeric(params["rate"]),
+           mbatch = as.numeric(params["mbatch"]),
+           nEpoch = as.numeric(params["nEpoch"]),
+           hidden_p = as.numeric(params["hidden_p"]),
+           scale = as.numeric(params["scale"]),
+           seed = 12345)
+  
+  train_error_grid = evaluate_error(Xtrain, Ytrain, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
+  val_error_grid = evaluate_error(Xval, Yval, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
+  test_error_grid = evaluate_error(Xt, Yt, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
+  return(list(train_error_grid = train_error_grid,
+              val_error_grid = val_error_grid,
+              test_error_grid = test_error_grid))
+}
+
+results <- apply(param_grid, 1, function(params){
+  params <- as.list(params)
+  train_model(params)
+})
+
+results$train_error_grid
+min(results$train_error_grid)
+
+results$val_error_grid
+min(results$val_error_grid)
+
+results$test_error_grid
+min(results$test_error_grid)
+
