@@ -72,9 +72,24 @@ train_model <- function(params) {
            scale = as.numeric(params["scale"]),
            seed = 12345)
   
-  train_error_grid = evaluate_error(Xtrain, Ytrain, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
-  val_error_grid = evaluate_error(Xval, Yval, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
-  test_error_grid = evaluate_error(Xt, Yt, out3$params$W1, out3$params$b1, out3$params$W2, out3$params$b2)
+  train_error_grid = evaluate_error(Xval = Xtrain, 
+                                    yval = Ytrain, 
+                                    W1 = out3$params$W1, 
+                                    b1 = out3$params$b1, 
+                                    W2 = out3$params$W2, 
+                                    b2 = out3$params$b2)
+  val_error_grid = evaluate_error(Xval = Xval, 
+                                  yval = Yval, 
+                                  W1 = out3$params$W1, 
+                                  b1 = out3$params$b1, 
+                                  W2 = out3$params$W2, 
+                                  b2 = out3$params$b2)
+  test_error_grid = evaluate_error(Xval = Xt, 
+                                   yval = Yt, 
+                                   W1 = out3$params$W1, 
+                                   b1 = out3$params$b1, 
+                                   W2 = out3$params$W2, 
+                                   b2 = out3$params$b2)
   return(list(train_error_grid = train_error_grid,
               val_error_grid = val_error_grid,
               test_error_grid = test_error_grid))
