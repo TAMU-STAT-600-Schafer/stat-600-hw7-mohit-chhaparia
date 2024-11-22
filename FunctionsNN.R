@@ -64,13 +64,12 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
 
   # [To Do] Forward pass
   # From input to hidden 
-  hidden <- pmax(0, X %*% W1 + matrix(b1, nrow = nrow(X), ncol = length(b1), byrow = TRUE))
+  hidden <- matrix(pmax(0, X %*% W1 + matrix(b1, nrow = nrow(X), ncol = length(b1), byrow = TRUE)), nrow = nrow(X))
   
   # ReLU
   
   # From hidden to output scores
   scores <- hidden %*% W2 + matrix(b2, nrow =  nrow(hidden), ncol = length(b2), byrow = TRUE)
- 
   
   # [ToDo] Backward pass
   # Get loss, error, gradient at current scores using loss_grad_scores function
@@ -105,7 +104,8 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
 # b2 - a vector of size K of intercepts
 evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
   # [ToDo] Forward pass to get scores on validation data
-  hidden <- pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE))
+  hidden <- matrix(pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE)), nrow = nrow(Xval))
+
   scores <- hidden %*% W2 + matrix(b2, nrow = nrow(hidden), ncol = length(b2), byrow = TRUE)
   
   probs <- exp(scores) / rowSums(exp(scores)) # Compute probabilities
