@@ -204,6 +204,7 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
       stop("lambda should contain a single element")
     }
   }
+  if(lambda < 0) stop("lambda should be non-negative")
   
   if(!(length(K) == length(lambda)) | !(length(K) == 1)) stop("K and lambda should contain single numeric elements.")
   if(nrow(X) != length(y)) stop("Number of rows of X should be equal to the number of elements in y.")
@@ -376,6 +377,7 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
       stop("lambda should contain a single element")
     }
   }
+  if(lambda < 0) stop("lambda should be non-negative")
   
   if(!is.vector(rate)){
     if(!is.matrix(rate)) stop("rate should contain a single element")
