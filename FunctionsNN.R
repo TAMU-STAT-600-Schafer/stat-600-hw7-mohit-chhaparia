@@ -137,7 +137,7 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
                      hidden_p = 20, scale = 1e-3, seed = 12345){
   # Get sample size and total number of batches
   n = length(y)
-  nBatch = floor(n/mbatch)
+  nBatch = floor(n / mbatch)
 
   # [ToDo] Initialize b1, b2, W1, W2 using initialize_bw with seed as seed,
   # and determine any necessary inputs from supplied ones
