@@ -174,6 +174,17 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
   if(!all(is.numeric(W2))) stop("All elements of W2 should be numeric")
   if(!all(is.numeric(b2))) stop("All elements of b2 should be numeric")
   if(!is.numeric(lambda)) stop("Lambda should be numeric")
+  if(!is.numeric(K)) stop("K should be a positive integer")
+  
+  if(!(min(y) >= 0) | !(max(y) <= (K - 1))) stop("Classes should range from 0 to K-1")
+  if(!is.vector(y)){
+    if(!is.matrix(y)) stop("y should be a vector or a column matrix")
+    if(ncol(y) == 1){
+      y <- as.vector(y)
+    } else{
+      stop("y should be a vector or a column matrix")
+    }
+  }
   
   # [To Do] Forward pass
   # From input to hidden 
