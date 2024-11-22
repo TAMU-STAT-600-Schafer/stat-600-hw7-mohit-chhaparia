@@ -262,6 +262,32 @@ evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
   if(!all(is.numeric(W2))) stop("All elements of W2 should be numeric.")
   if(!all(is.numeric(b2))) stop("All elements of b2 should be numeric.")
   
+  if(!is.matrix(Xval)) stop("Xval should be a matrix.")
+  if(!is.matrix(W1)) stop("W1 should be a matrix.")
+  if(!is.matrix(W2)) stop("W2 should be a matrix.")
+  if(!is.vector(yval)) if(!is.matrix(yval)){
+    stop("yval should be a vector")
+  } else{
+    if(ncol(yval) != 1){
+      stop("yval should be a vector")
+    } else yval <- as.vector(yval)
+  }
+  if(!is.vector(b1)) if(!is.matrix(b1)){
+    stop("b1 should be a vector")
+  } else{
+    if(ncol(b1) != 1){
+      stop("b1 should be a vector")
+    } else b1 <- as.vector(b1)
+  }
+  if(!is.vector(b2)) if(!is.matrix(b2)){
+    stop("b2 should be a vector")
+  } else{
+    if(ncol(b2) != 1){
+      stop("b2 should be a vector")
+    } else b2 <- as.vector(b2)
+  }
+  
+  
   # [ToDo] Forward pass to get scores on validation data
   hidden <- matrix(pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE)), nrow = nrow(Xval))
 
