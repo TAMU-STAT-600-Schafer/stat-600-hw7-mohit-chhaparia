@@ -196,3 +196,24 @@ test_that("Training Error decreases over Epochs", {
   expect_true(all(diff(out$error) <= 0))
 })
 
+test_that("NN_train works with a single batch", {
+  set.seed(0928)
+  X <- matrix(rnorm(60), nrow = 20, ncol = 3)
+  y <- sample(0:2, 20, replace = TRUE)
+  
+  out <- NN_train(X = X,
+                  y = y,
+                  Xval = X,
+                  yval = y,
+                  lambda = 0.01,
+                  rate = 0.1,
+                  mbatch = 20,
+                  nEpoch = 20,
+                  hidden_p = 5,
+                  scale = 1e-3,
+                  seed = 0928)
+  
+  expect_length(out$error, 20)
+  expect_length(out$error_val, 20)
+})
+
