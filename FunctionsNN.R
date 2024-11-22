@@ -98,8 +98,11 @@ loss_grad_scores <- function(y, scores, K){
   ###############
   if(!all(is.numeric(y))) stop("All elements of y should be numeric.")
   if(length(y) != nrow(scores)) stop("Length of y should be equal to the number of rows in scores")
-  if(min(y) != 0 & max(y) != (K - 1)) stop("Classes should range from 0 to K-1")
-  if(length(unique(y)) != K) stop("All classes from 0 to K-1 should be present in y")
+  # if(min(y) != 0 & max(y) != (K - 1)) stop("Classes should range from 0 to K-1")
+  # if(length(unique(y)) != K) stop("All classes from 0 to K-1 should be present in y")
+  # Note: Commenting these tests as there are batches being passed to one_pass
+  # and this to loss_grad_scores which do not contain all the classes
+  if(!(min(y) >= 0) | !(max(y) <= (K - 1))) stop("Classes should range from 0 to K-1")
   if(!is.vector(y)){
     if(!is.matrix(y)) stop("y should be a vector or a column matrix")
     if(ncol(y) == 1){
