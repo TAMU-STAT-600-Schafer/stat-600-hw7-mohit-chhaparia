@@ -96,21 +96,36 @@ best_val_error <- results_df[which.min(results_df$val_error_grid), ]
 best_test_error <- results_df[which.min(results_df$test_error_grid), ]
 
 print(paste("Minimum Train Error:", min_train_error))
+# "Minimum Train Error: 5.16666666666667"
 print("All Errors when Train error is minimum: ")
 print(best_train_error)
+# train_error_grid val_error_grid test_error_grid
+# 399         5.166667           16.5           15.75
 print("Best Parameter for Minimum Train Error: ")
 print(param_grid[which.min(results_df$train_error_grid),])
+# lambda rate mbatch nEpoch hidden_p scale
+# 399  0.001  0.1     25    100      200  0.01
 
 print(paste("Minimum val Error:", min_val_error))
+# "Minimum val Error: 15"
 print("All Errors when Val error is minimum: ")
 print(best_val_error)
+# train_error_grid val_error_grid test_error_grid
+# 408              5.5             15        16.18333
 print("Best Parameter for Minimum Val Error: ")
 print(param_grid[which.min(results_df$val_error_grid),])
+# lambda rate mbatch nEpoch hidden_p scale
+# 408  0.001  0.1     50    100      200  0.01
 
 print(paste("Minimum Test Error:", min_test_error))
+# "Minimum Test Error: 15.75"
 print("All Errors when Test error is minimum: ")
 print(best_test_error)
+# train_error_grid val_error_grid test_error_grid
+# 399         5.166667           16.5           15.75
 print("Best Parameter for Minimum Test Error: ")
 print(param_grid[which.min(results_df$test_error_grid),])
+# lambda rate mbatch nEpoch hidden_p scale
+# 399  0.001  0.1     25    100      200  0.01
 
 
