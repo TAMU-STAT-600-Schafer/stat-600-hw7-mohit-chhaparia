@@ -254,6 +254,14 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
 # W2 - a h by K matrix of weights
 # b2 - a vector of size K of intercepts
 evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
+  
+  if(!all(is.numeric(Xval))) stop("All elements of Xval should be numeric.")
+  if(!all(is.numeric(yval))) stop("All elements of yval should be numeric.")
+  if(!all(is.numeric(W1))) stop("All elements of W1 should be numeric.")
+  if(!all(is.numeric(b1))) stop("All elements of b1 should be numeric.")
+  if(!all(is.numeric(W2))) stop("All elements of W2 should be numeric.")
+  if(!all(is.numeric(b2))) stop("All elements of b2 should be numeric.")
+  
   # [ToDo] Forward pass to get scores on validation data
   hidden <- matrix(pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE)), nrow = nrow(Xval))
 
