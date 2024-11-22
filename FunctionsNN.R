@@ -79,6 +79,12 @@ one_pass <- function(X, y, K, W1, b1, W2, b2, lambda){
   
   dW2 <- t(hidden) %*% grad_scores + lambda * W2
   db2 <- colSums(grad_scores)
+  
+  hidden_grad <- grad_scores %*% t(W2)
+  hidden_grad[hidden <= 0] <- 0 # Zero for non-positive inputs
+  
+  dW1 <- t(X) %*% hidden_grad + lambda * W1
+  db1 <- colSums(hidden_grad)
 
   # Get gradient for 2nd layer W2, b2 (use lambda as needed)
   
