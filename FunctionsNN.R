@@ -63,6 +63,12 @@ initialize_bw <- function(p, hidden_p, K, scale = 1e-3, seed = 12345){
   }
   if(scale <= 0) stop("scale should be a positive number.")
   
+  ##################
+  # Checks on seed #
+  ##################
+  if(!is.numeric(seed)) stop("seed should be a number")
+  if(!is.vector(seed)) if(!is.matrix(scale)) stop("seed should be a vector or a matrix")
+  
   
   set.seed(seed)
   
