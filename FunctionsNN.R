@@ -321,6 +321,10 @@ NN_train <- function(X, y, Xval, yval, lambda = 0.01,
     }
   }
   
+  if(!is.matrix(X)) stop("X should be matrix")
+  if(!is.matrix(Xval)) stop("Xval should be matrix")
+  if(ncol(X) != ncol(Xval)) stop("X and Xval should have the same number of columns.")
+  
   # Get sample size and total number of batches
   n = length(y)
   nBatch = floor(n / mbatch)
