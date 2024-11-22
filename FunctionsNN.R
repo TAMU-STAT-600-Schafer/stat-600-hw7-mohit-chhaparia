@@ -286,7 +286,14 @@ evaluate_error <- function(Xval, yval, W1, b1, W2, b2){
       stop("b2 should be a vector")
     } else b2 <- as.vector(b2)
   }
-  
+
+  if(nrow(Xval) != length(yval)) stop("Number of rows of Xval should be equal to the number of elements in yval.")
+  if(ncol(Xval) != nrow(W1)) stop("Number of columns of Xval should be equal to the number of rows of W1.")
+  if(ncol(W1) != length(b1)) stop("Number of columns of W1 should be equal to the number of elements in b1.")
+  if(ncol(W1) != nrow(W2)) stop("Number of columns of W1 should be equal to the number of rows of W2.")
+  if(ncol(W2) != length(b2)) stop("Number of columns of W2 should be equal to the number of elements of b2.")
+  if(!(min(yval) >= 0) | !(max(yval) <= (ncol(W2) - 1))) stop("Elements of yval should range from 0 to K-1.")
+  if(!all(yval == round(yval))) stop("All elements of yval should be integers.")
   
   # [ToDo] Forward pass to get scores on validation data
   hidden <- matrix(pmax(0, Xval %*% W1 + matrix(b1, nrow = nrow(Xval), ncol = length(b1), byrow = TRUE)), nrow = nrow(Xval))
