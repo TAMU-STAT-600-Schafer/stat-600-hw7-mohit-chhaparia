@@ -153,3 +153,22 @@ test_that("Testing evalutate_error with incorrect inputs", {
                               b2 = b2))
 })
 
+test_that("output type and dimension of evaluate_error with valid inputs", {
+  Xval <- matrix(1:4, nrow = 2)
+  W1 <- matrix(1:6, nrow = 2)
+  b1 <- rep(0, 3)
+  W2 <- matrix(rnorm(9, mean = 0, sd = 1e-3), nrow = 3)
+  b2 <- rep(0, 3)
+  yval <- 0:1
+  
+  out <- evaluate_error(Xval = Xval,
+                        yval = yval,
+                        W1 = W1,
+                        b1 = b1,
+                        W2 = W2,
+                        b2 = b2)
+  
+  expect_type(out, "double")
+  expect_length(out, 1)
+})
+
