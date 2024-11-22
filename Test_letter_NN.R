@@ -1,4 +1,5 @@
 # Load the data
+library(microbenchmark)
 
 # Training data
 letter_train <- read.table("Data/letter-train.txt", header = F, colClasses = "numeric")
@@ -45,6 +46,24 @@ lines(1:length(out2$error_val), out2$error_val, col = "red")
 # Evaluate error on testing data
 test_error = evaluate_error(Xt, Yt, out2$params$W1, out2$params$b1, out2$params$W2, out2$params$b2)
 test_error # 16.1
+
+
+
+
+microbenchmark(
+  LRMultiClass(Xinter, Ytrain, Xtinter, Yt, lambda = 1, numIter = 150, eta = 0.1),
+  NN_train(Xtrain, Ytrain, Xval, Yval, lambda = 0.001,
+                  rate = 0.1, mbatch = 50, nEpoch = 150,
+                  hidden_p = 100, scale = 1e-3, seed = 12345),
+  NN_train(Xtrain, Ytrain, Xval, Yval, lambda = 0.001,
+           rate = 0.1, mbatch = 25, nEpoch = 100,
+           hidden_p = 200, scale = 1e-2, seed = 12345),
+  times = 25
+)
+# Median time (HW3) = 3.134627 seconds
+# Median time (HW7 - default input) = 2.463481 seconds
+# Median time (HW7 - input with minimum test error) = 3.348792 seconds
+
 
 # [ToDo] Try changing the parameters above to obtain a better performance,
 # this will likely take several trials
